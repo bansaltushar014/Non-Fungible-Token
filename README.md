@@ -1,6 +1,6 @@
 ## About
 
- Non Fungible token created using ERC 721 standard using React, Solidity and truffle Framework.
+ Non Fungible token created using ERC 721 standard with React, Solidity and truffle Framework.
 
 ## How to Start
 
