@@ -2,6 +2,10 @@ import React, { useEffect, useState } from 'react';
 import web3 from './helper.js';
 import Contract from './contracts/Document.json';
 import BuyToken from './components/buyTokenModal';
+import ViewToken from './components/viewTokenModal';
+import OwnerOf from './components/ownerOfModal';
+import TransferToken from './components/transferToken';
+import ApproveToken from './components/approveToken.js';
 
 function App() {
   
@@ -36,7 +40,7 @@ function App() {
 
   const totalSupplyfun = () => {
     erc721Instance.methods.totalSupply().call()
-    .then(res => {
+    .then(async res => {
       setTotalSupply(res);
       console.log(res);
     })
@@ -45,15 +49,49 @@ function App() {
     })
   }
 
-  return (
-    <div>
-      
-      totalSupply : {totalSupply}
-      <br/><br/>
+  // const exist = (tokenId) => {
+  //   erc721Instance.methods.exists(tokenId).call()
+  //   .then(res => {
+  //     console.log(res);
+  //   })
+  //   .catch(err => {
+  //     console.log(err);
+  //   })
+  // }
 
+  return (
+    <div className="container">
+      <br/><br/><br/><br/>
+      <b> Total Supply :</b> {totalSupply}
+      <br/><br/>
+    
       <BuyToken 
         erc721Instance = {erc721Instance}
+        totalSupplyfun = {totalSupplyfun}
       />
+
+      <br/><br/>
+      <ViewToken 
+         erc721Instance = {erc721Instance}
+         totalSupply = {totalSupply}
+      />
+
+      <br/><br/>
+      <OwnerOf
+        erc721Instance = {erc721Instance}
+        totalSupply = {totalSupply}
+      />
+      
+      <br/><br/>
+      <TransferToken
+        erc721Instance = {erc721Instance}
+      />
+
+      <br/><br/>
+      <ApproveToken
+        erc721Instance = {erc721Instance}
+      />
+
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import web3 from '../helper';
+import web3 from '../../helper';
 
 const metamaskAccount = () => {
     var promise = new Promise(function (resolve, reject) {

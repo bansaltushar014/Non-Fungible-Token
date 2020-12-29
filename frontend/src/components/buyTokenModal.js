@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import M from "materialize-css";
 import "materialize-css/dist/css/materialize.min.css";
-import metamaskAccount from './metamask';
+import metamaskAccount from './subcomponents/metamask';
 import web3 from "../helper";
 
 class BuyTokenModal extends Component {
@@ -9,7 +9,8 @@ class BuyTokenModal extends Component {
     constructor(props){
         super(props);
         this.state = {
-            modalInstance: ''
+            modalInstance: '',
+            modalId: 'buyTokenModal'
         }
     }
 
@@ -54,6 +55,7 @@ class BuyTokenModal extends Component {
 
         await metamaskAccount()
         .then(account => {
+            const that = this;
             this.props.erc721Instance.methods.buyToken(type, title, description)
             .send({
                  from: account,
@@ -62,6 +64,7 @@ class BuyTokenModal extends Component {
             })
             .then(res => {
                 console.log(res);
+                that.props.totalSupplyfun();
             })
             .catch(err => {
                 console.log(err);
@@ -77,7 +80,7 @@ class BuyTokenModal extends Component {
             <div>
                 <a
                     className="waves-effect waves-light btn modal-trigger"
-                    data-target="modal1"
+                    data-target={this.state.modalId}
                 >
                     BuyToken
                 </a>
@@ -86,7 +89,7 @@ class BuyTokenModal extends Component {
                     ref={Modal => {
                         this.Modal = Modal;
                     }}
-                    id="modal1"
+                    id={this.state.modalId}
                     className="modal"
                 >
                     {/* If you want Bottom Sheet Modal then add 
@@ -116,8 +119,8 @@ class BuyTokenModal extends Component {
                                 </div>
                                 <div className="row">
                                     <div className="input-field col s6">
-                                        <div className="modal-close waves-effect waves-light btn modal-trigger">
-                                        <input id="submit" type="submit" class="validate" />
+                                        <div className="modal-close waves-effect waves-light btn ">
+                                        <input id="submit" type="submit" className="validate" />
                                         </div>
                                     </div>
                                     {/* <div className="input-field col s6">

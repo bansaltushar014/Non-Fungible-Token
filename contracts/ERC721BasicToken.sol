@@ -162,10 +162,10 @@ constructor()
   {
     require(_from != address(0));
     require(_to != address(0));
-clearApproval(_from, _tokenId);
+    clearApproval(_from, _tokenId);
     removeTokenFrom(_from, _tokenId);
     addTokenTo(_to, _tokenId);
-emit Transfer(_from, _to, _tokenId);
+    emit Transfer(_from, _to, _tokenId);
   }
 /**
    * @dev Safely transfers the ownership of a given token ID to another address
